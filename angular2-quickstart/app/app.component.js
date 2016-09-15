@@ -11,15 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // donne au composant l'accès au core d'Angular @Component
 var core_1 = require('@angular/core');
+// classe Hero
+var Hero = (function () {
+    function Hero() {
+    }
+    return Hero;
+}());
+exports.Hero = Hero;
 // decorator @Component associant metadata avec la classe composant AppComponent
 var AppComponent = (function () {
     function AppComponent() {
+        this.title = 'Tour of Heroes';
+        // propriété "hero" du component de type "Hero"
+        this.hero = {
+            id: 1,
+            name: 'windstorm'
+        };
     }
     AppComponent = __decorate([
         core_1.Component({
             // sélecteur CSS pour élément HTML représentant le composant
             selector: 'my-app',
-            template: '<h1>Ma DEUXIEME appli Angular 2'
+            // {{}} = one-way data binding
+            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <div><label>id : </label>{{hero.id}}</div>\n        <div>\n            <label>name : </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
