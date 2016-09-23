@@ -2,12 +2,8 @@
 
 // donne au composant l'accès au core d'Angular @Component
 import { Component } from '@angular/core';
-
-// Classe Hero
-export class Hero {
-    id: number;
-    name: string;
-}
+import { Hero } from './hero';
+import { HeroDetailComponent } from './hero-detail.component';
 
 // Tableau de Héros
 const HEROES: Hero[] = [
@@ -90,14 +86,7 @@ const HEROES: Hero[] = [
                 <span class="badge">{{hero.id}}</span> {{hero.name}}
             </li>
         </ul>
-        <div *ngIf="selectedHero">
-            <h2>{{selectedHero.name}}</h2>
-            <div><label>id: </label>{{selectedHero.id}}</div>
-            <div>
-                <label>name: </label>
-                <input [(ngModel)]="selectedHero.name" placeholder="name">
-            </div>
-        </div>
+        <my-hero-detail [hero]="selectedHero"></my-hero-detail>
         `
 })
 
