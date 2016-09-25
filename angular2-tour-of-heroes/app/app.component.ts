@@ -4,20 +4,10 @@
 import { Component } from '@angular/core';
 import { Hero } from './hero';
 import { HeroDetailComponent } from './hero-detail.component';
+import { HeroService } from './hero.service';
 
-// Tableau de Héros
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
+// importe l'interface OnInit
+import { OnInit } from '@angular/core';
 
 // decorator @Component associant metadata avec la classe composant AppComponent
 @Component({
@@ -87,14 +77,31 @@ const HEROES: Hero[] = [
             </li>
         </ul>
         <my-hero-detail [hero]="selectedHero"></my-hero-detail>
-        `
+        `,
+    // teach the injector how to make a HeroService by registering a HeroService provider
+    // tells Angular to create a fresh instance of the HeroService when it creates a new AppComponent
+    providers: [HeroService]
 })
 
 // component class : contrôle l'apparence et le comportement d'une vue au travers de son template
-export class AppComponent { 
+export class AppComponent implements OnInit { 
     title = 'Tour of Heroes';
-    heroes = HEROES;
+    heroes: Hero[];
     selectedHero: Hero;
+
+    constructor(private heroService: HeroService) { }
+
+    getHeroes(): void {
+       this.heroService.getHeroesSlowly()
+        .then(heroes =>
+            this.heroes = heroes
+        );
+    }
+
+    ngOnInit(): void {
+        this.getHeroes();
+    }
+
     // set la propriété selectedHero par rapport au héro "cliqué"
     onSelect(hero: Hero): void {
         this.selectedHero = hero;
