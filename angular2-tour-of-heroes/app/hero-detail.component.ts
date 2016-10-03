@@ -35,10 +35,16 @@ export class HeroDetailComponent implements OnInit {
             let id = +params['id'];
             this.heroService.getHero(id)
                 .then(hero => this.hero = hero);
-        })
+        });
     }
 
     goBack(): void {
         this.location.back();
+    }
+
+    // Méthode appelée pour persister les changements de nom d'un héro dans le template hero-detail
+    save(): void {
+        this.heroService.update(this.hero)
+            .then(() => this.goBack());
     }
 }

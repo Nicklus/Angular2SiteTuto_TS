@@ -1,9 +1,19 @@
 <h2>My Heroes</h2>
+<div>
+    <label>Hero name:</label> <input #heroName />
+    <!-- En réponse au clic, après l'ajout du héro, on nettoie le champ input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+        Add
+    </button>
+</div>
 <ul class="heroes">
     <li *ngFor="let hero of heroes"
     [class.selected]="hero === selectedHero"
     (click)="onSelect(hero)">
-    <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <span class="badge">{{hero.id}}</span>
+    <span>{{hero.name}}</span>
+    <!-- stopPropagation() => évite de sélectionner le héro que l'on vient de supprimer -->
+    <button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button>
     </li>
 </ul>
 <div *ngIf="selectedHero">
